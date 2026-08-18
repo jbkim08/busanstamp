@@ -20,13 +20,13 @@ server:
 
 jwt:
   secret: ${JWT_SECRET}
-  expiration: 3600000
+  access-token-expiration: 3600000
 
 kakao:
   rest-api-key: ${KAKAO_REST_API_KEY}
 
 app:
-  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  frontend-url: ${FRONTEND_URL}
 
 springdoc:
   swagger-ui:
