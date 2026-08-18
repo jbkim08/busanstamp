@@ -29,5 +29,9 @@ app:
   frontend-url: ${FRONTEND_URL}
 
 springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
   swagger-ui:
+    enabled: true
     path: /swagger-ui.html
