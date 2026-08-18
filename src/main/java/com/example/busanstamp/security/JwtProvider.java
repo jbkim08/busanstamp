@@ -42,7 +42,7 @@ public class JwtProvider {
                 .signWith(secretKey)
                 .compact();
     }
-    //토큰을 암호풀어서 유저정보를 지닌 Claims 객체 리턴
+    //토큰을 검증하고 암호풀어서 유저정보를 지닌 Claims 객체 리턴
     public Claims parseClaims(String token) {
         return Jwts.parser()
                 .verifyWith(secretKey)
