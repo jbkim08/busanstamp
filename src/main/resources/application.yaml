@@ -1,3 +1,33 @@
 spring:
   application:
     name: busanstamp
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/busan_stamp?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.busanstamp
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  address: 0.0.0.0
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 3600000
+
+kakao:
+  rest-api-key: ${KAKAO_REST_API_KEY}
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
