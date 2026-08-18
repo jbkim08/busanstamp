@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.busanstamp.user.UserMapper">
+
+    <select id="existsByEmail" resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        WHERE email = #{email}
+    </select>
+
+    <insert id="save"
+            parameterType="com.example.busanstamp.user.User"
+            useGeneratedKeys="true"
+            keyProperty="userId">
+
+        INSERT INTO users (
+        email,
+        password,
+        nickname,
+        role
+        )
+        VALUES (
+        #{email},
+        #{password},
+        #{nickname},
+        #{role}
+        )
+    </insert>
+
+    <select id="findByEmail"
+            resultType="com.example.busanstamp.user.User">
+
+        SELECT
+            user_id,
+            email,
+            password,
+            nickname,
+            role,
+            created_at
+        FROM users
+        WHERE email = #{email}
+    </select>
+
+    <select id="findById"
+            resultType="com.example.busanstamp.user.User">
+
+        SELECT
+            user_id,
+            email,
+            password,
+            nickname,
+            role,
+            created_at
+        FROM users
+        WHERE user_id = #{userId}
+    </select>
+
+</mapper>
