@@ -40,8 +40,7 @@ public class AuthController {
 
     @GetMapping("/me")
     public UserResponse getMyInfo(
-            @AuthenticationPrincipal
-            AuthenticatedUser authenticatedUser
+            @AuthenticationPrincipal AuthenticatedUser authenticatedUser
     ) {
         return authService.getMyInfo(
                 authenticatedUser.userId()
