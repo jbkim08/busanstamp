@@ -32,3 +32,11 @@ CREATE TABLE places (
     CONSTRAINT fk_places_created_by
         FOREIGN KEY (created_by) REFERENCES users(user_id)
 );
+
+ALTER TABLE places
+    ADD COLUMN kakao_place_id VARCHAR(50),
+    ADD COLUMN phone VARCHAR(30),
+    ADD COLUMN kakao_place_url VARCHAR(500),
+    ADD COLUMN kakao_category_name VARCHAR(255),
+    ADD CONSTRAINT uk_places_kakao_place_id
+        UNIQUE (kakao_place_id);
