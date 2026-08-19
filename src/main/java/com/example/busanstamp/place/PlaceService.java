@@ -76,7 +76,7 @@ public class PlaceService {
             Long placeId,
             PlaceUpdateRequest request
     ) {
-        // 존재하는 장소인지 먼저 확인
+        // 존재하는 장소인지 먼저 확인 없으면 예외처리됨
         getPlace(placeId);
 
         Place place = new Place();
@@ -106,7 +106,7 @@ public class PlaceService {
 
     @Transactional
     public void delete(Long placeId) {
-        getPlace(placeId);
+        getPlace(placeId); // 삭제전 있는지 확인
 
         int result = placeMapper.deleteById(placeId);
 
@@ -118,6 +118,7 @@ public class PlaceService {
         }
     }
 
+    //placeId로 장소를 찾고 없으면 예외처리
     private Place getPlace(Long placeId) {
         Place place = placeMapper.findById(placeId);
 
