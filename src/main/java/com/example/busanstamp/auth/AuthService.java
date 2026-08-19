@@ -41,7 +41,7 @@ public class AuthService {
                 passwordEncoder.encode(request.password())
         );
         user.setNickname(request.nickname().trim());
-        user.setRole("USER");
+        user.setRole("USER"); // 권한은 처음에 유저
 
         int result = userMapper.save(user);
 
