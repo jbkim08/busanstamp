@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.busanstamp.place.PlaceMapper">
+
+    <select id="findAll"
+            resultType="com.example.busanstamp.place.Place">
+
+        SELECT place_id,
+        name,
+        description,
+        address,
+        latitude,
+        longitude,
+        category,
+        image_url,
+        created_by,
+        created_at,
+        updated_at
+        FROM places
+
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (
+                name LIKE CONCAT('%', #{keyword}, '%')
+                OR address LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="category != null and category != ''">
+                AND category = #{category}
+            </if>
+        </where>
+
+        ORDER BY place_id DESC
+    </select>
+
+
+    <select id="findById"
+            resultType="com.example.busanstamp.place.Place">
+
+        SELECT place_id,
+        name,
+        description,
+        address,
+        latitude,
+        longitude,
+        category,
+        image_url,
+        created_by,
+        created_at,
+        updated_at
+        FROM places
+        WHERE place_id = #{placeId}
+    </select>
+
+
+    <insert id="save"
+            parameterType="com.example.busanstamp.place.Place"
+            useGeneratedKeys="true"
+            keyProperty="placeId">
+
+        INSERT INTO places (
+        name,
+        description,
+        address,
+        latitude,
+        longitude,
+        category,
+        image_url,
+        created_by
+        )
+        VALUES (
+        #{name},
+        #{description},
+        #{address},
+        #{latitude},
+        #{longitude},
+        #{category},
+        #{imageUrl},
+        #{createdBy}
+        )
+    </insert>
+
+
+    <update id="update"
+            parameterType="com.example.busanstamp.place.Place">
+
+        UPDATE places
+        SET name = #{name},
+        description = #{description},
+        address = #{address},
+        latitude = #{latitude},
+        longitude = #{longitude},
+        category = #{category},
+        image_url = #{imageUrl},
+        updated_at = CURRENT_TIMESTAMP
+        WHERE place_id = #{placeId}
+    </update>
+
+
+    <delete id="deleteById">
+        DELETE FROM places
+        WHERE place_id = #{placeId}
+    </delete>
+
+</mapper>
