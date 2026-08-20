@@ -14,6 +14,12 @@ public record PlaceResponse(
         BigDecimal longitude,
         String category,
         String imageUrl,
+
+        String kakaoPlaceId,
+        String phone,
+        String kakaoPlaceUrl,
+        String kakaoCategoryName,
+
         Long createdBy,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
@@ -29,6 +35,12 @@ public record PlaceResponse(
                 place.getLongitude(),
                 place.getCategory(),
                 place.getImageUrl(),
+
+                place.getKakaoPlaceId(),
+                place.getPhone(),
+                place.getKakaoPlaceUrl(),
+                place.getKakaoCategoryName(),
+
                 place.getCreatedBy(),
                 place.getCreatedAt(),
                 place.getUpdatedAt()
