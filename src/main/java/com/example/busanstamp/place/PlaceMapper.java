@@ -16,6 +16,10 @@ public interface PlaceMapper {
     Place findById(
             @Param("placeId") Long placeId
     );
+    //저장되어 있는 카카오장소가 있는지 확인
+    int existsByKakaoPlaceId(
+            @Param("kakaoPlaceId") String kakaoPlaceId
+    );
     //신규 장소저장
     int save(Place place);
     //기존 장소 업데이트
