@@ -20,6 +20,12 @@ public class Place {
     private BigDecimal longitude;
     private String category;
     private String imageUrl;
+
+    private String kakaoPlaceId;
+    private String phone;
+    private String kakaoPlaceUrl;
+    private String kakaoCategoryName;
+
     private Long createdBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
