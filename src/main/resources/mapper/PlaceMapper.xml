@@ -5,10 +5,8 @@
 
 <mapper namespace="com.example.busanstamp.place.PlaceMapper">
 
-    <select id="findAll"
-            resultType="com.example.busanstamp.place.Place">
-
-        SELECT place_id,
+    <sql id="placeColumns">
+        place_id,
         name,
         description,
         address,
@@ -16,9 +14,20 @@
         longitude,
         category,
         image_url,
+        kakao_place_id,
+        phone,
+        kakao_place_url,
+        kakao_category_name,
         created_by,
         created_at,
         updated_at
+    </sql>
+
+    <select id="findAll"
+            resultType="com.example.busanstamp.place.Place">
+
+        SELECT
+            <include refid="placeColumns"></include>
         FROM places
 
         <where>
@@ -40,19 +49,19 @@
     <select id="findById"
             resultType="com.example.busanstamp.place.Place">
 
-        SELECT place_id,
-        name,
-        description,
-        address,
-        latitude,
-        longitude,
-        category,
-        image_url,
-        created_by,
-        created_at,
-        updated_at
+        SELECT
+            <include refid="placeColumns"></include>
         FROM places
         WHERE place_id = #{placeId}
+    </select>
+
+    <select id="existsByKakaoPlaceId"
+            resultType="int">
+
+        SELECT COUNT(*)
+        FROM places
+        WHERE kakao_place_id = #{kakaoPlaceId}
+
     </select>
 
 
@@ -62,24 +71,32 @@
             keyProperty="placeId">
 
         INSERT INTO places (
-        name,
-        description,
-        address,
-        latitude,
-        longitude,
-        category,
-        image_url,
-        created_by
+            name,
+            description,
+            address,
+            latitude,
+            longitude,
+            category,
+            image_url,
+            kakao_place_id,
+            phone,
+            kakao_place_url,
+            kakao_category_name,
+            created_by
         )
         VALUES (
-        #{name},
-        #{description},
-        #{address},
-        #{latitude},
-        #{longitude},
-        #{category},
-        #{imageUrl},
-        #{createdBy}
+            #{name},
+            #{description},
+            #{address},
+            #{latitude},
+            #{longitude},
+            #{category},
+            #{imageUrl},
+            #{kakaoPlaceId},
+            #{phone},
+            #{kakaoPlaceUrl},
+            #{kakaoCategoryName},
+            #{createdBy}
         )
     </insert>
 
@@ -88,14 +105,14 @@
             parameterType="com.example.busanstamp.place.Place">
 
         UPDATE places
-        SET name = #{name},
-        description = #{description},
-        address = #{address},
-        latitude = #{latitude},
-        longitude = #{longitude},
-        category = #{category},
-        image_url = #{imageUrl},
-        updated_at = CURRENT_TIMESTAMP
+            SET name = #{name},
+            description = #{description},
+            address = #{address},
+            latitude = #{latitude},
+            longitude = #{longitude},
+            category = #{category},
+            image_url = #{imageUrl},
+            updated_at = CURRENT_TIMESTAMP
         WHERE place_id = #{placeId}
     </update>
 
