@@ -28,6 +28,9 @@ kakao:
 app:
   frontend-url: ${FRONTEND_URL}
 
+qr:
+  secret: ${QR_SECRET}
+
 # 나중에 배포시 enabled=false 로 수정
 springdoc:
   api-docs:
