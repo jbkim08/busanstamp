@@ -40,3 +40,20 @@ ALTER TABLE places
     ADD COLUMN kakao_category_name VARCHAR(255),
     ADD CONSTRAINT uk_places_kakao_place_id
         UNIQUE (kakao_place_id);
+
+CREATE TABLE checkins (
+    checkin_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    place_id BIGINT NOT NULL,
+    checked_in_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_checkins_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_checkins_place
+    FOREIGN KEY (place_id) REFERENCES places(place_id)
+    ON DELETE CASCADE,
+
+    CONSTRAINT uk_checkins_user_place UNIQUE (user_id, place_id)
+);
