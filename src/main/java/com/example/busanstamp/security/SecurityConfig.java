@@ -129,7 +129,7 @@ public class SecurityConfig {
     //프론트와 CORS에러를 방지하기 위한 설정
     private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:5173")); // 운영에서는 실제 프론트엔드 도메인으로 제한할 것
+        configuration.setAllowedOriginPatterns(List.of("*")); // 운영에서는 실제 프론트엔드 도메인으로 제한할 것
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
