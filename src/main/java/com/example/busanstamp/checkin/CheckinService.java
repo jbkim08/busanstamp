@@ -1,6 +1,8 @@
 package com.example.busanstamp.checkin;
 
 import com.example.busanstamp.checkin.dto.CheckinResponse;
+import com.example.busanstamp.checkin.dto.StampBookResponse;
+import com.example.busanstamp.checkin.dto.StampResponse;
 import com.example.busanstamp.common.ApiException;
 import com.example.busanstamp.place.Place;
 import com.example.busanstamp.place.PlaceMapper;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -73,11 +76,26 @@ public class CheckinService {
         }
 
 
-        return new CheckinResponse(
-                checkin.getCheckinId(),
-                place.getPlaceId(),
-                place.getName(),
-                place.getCategory(),
-                checkin.getCheckedInAt());
+        return new CheckinResponse(checkin.getCheckinId(), place.getPlaceId(), place.getName(), place.getCategory(), checkin.getCheckedInAt());
+    }
+
+    @Transactional(readOnly = true)
+    public StampBookResponse getMyStampBook(Long userId) {
+        //유저의 스탬프상태 가져옴
+        List<StampStatus> stampStatuses = checkinMapper.findStampStatusesByUserId(userId);
+        //응답용 DTO로 변환
+        List<StampResponse> stamps = stampStatuses.stream().map(StampResponse::from).toList();
+
+        int totalCount = stamps.size();
+        int acquiredCount = (int) stamps.stream().filter(StampResponse::acquired).count();
+        int remainingCount = totalCount - acquiredCount;
+        int progressPercent = totalCount == 0 ? 0 : (int) Math.round(acquiredCount * 100.0 / totalCount);
+
+        return new StampBookResponse(
+                totalCount,
+                acquiredCount,
+                remainingCount,
+                progressPercent,
+                stamps);
     }
 }
