@@ -30,5 +30,35 @@
 
     </insert>
 
+    <select
+            id="findStampStatusesByUserId"
+            resultType="com.example.busanstamp.checkin.StampStatus">
+
+        SELECT
+        p.place_id,
+        p.name,
+        p.category,
+        p.address,
+        p.image_url,
+
+        CASE
+        WHEN c.checkin_id IS NULL THEN FALSE
+        ELSE TRUE
+        END AS acquired,
+
+        c.checked_in_at
+
+        FROM places p
+
+        LEFT JOIN checkins c
+        ON p.place_id = c.place_id
+        AND c.user_id = #{userId}
+
+        ORDER BY
+        acquired DESC,
+        c.checked_in_at DESC,
+        p.place_id DESC
+
+    </select>
 
 </mapper>
