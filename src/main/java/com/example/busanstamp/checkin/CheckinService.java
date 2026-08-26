@@ -40,11 +40,9 @@ public class CheckinService {
          */
         Place place = placeMapper.findById(placeId);
 
-
         if (place == null) {
             throw new ApiException(HttpStatus.NOT_FOUND, "등록되지 않은 관광 장소입니다.");
         }
-
 
         /*
          * 3. 이미 체크인했는지 검사
@@ -52,7 +50,6 @@ public class CheckinService {
         if (checkinMapper.existsByUserAndPlace(userId, placeId) > 0) {
             throw new ApiException(HttpStatus.CONFLICT, "이미 스탬프를 획득한 장소입니다.");
         }
-
 
         /*
          * 4. Checkin 생성
@@ -71,11 +68,7 @@ public class CheckinService {
             }
 
         } catch (DuplicateKeyException exception) {
-
-            /*
-             * 동시에 두 요청이 들어와도
-             * DB UNIQUE가 최종 방어
-             */
+            // 한번 더 중복인지 체크
             throw new ApiException(HttpStatus.CONFLICT, "이미 스탬프를 획득한 장소입니다.");
         }
 
