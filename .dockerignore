@@ -1,0 +1,27 @@
+# Git & Docker 관련
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# IDE & Editor 설정 파일
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Gradle 빌드 및 캐시 관련 (빌드 결과물 제외)
+.gradle/
+build/
+bin/
+out/
+
+# 로그 및 OS 임시 파일
+*.log
+.DS_Store
+Thumbs.db
+
+# 문서 및 기타
+*.md
